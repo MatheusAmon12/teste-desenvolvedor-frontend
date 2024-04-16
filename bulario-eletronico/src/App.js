@@ -7,6 +7,7 @@ import { makeStyles } from 'tss-react/mui'
 import Search from './components/Search'
 import Cards from './components/Cards'
 import TemplateDefault from './templates/Default'
+import InputRadio from './components/InputRadio'
 
 const useStyles = makeStyles()(() => {
   return{
@@ -22,6 +23,8 @@ function App() {
   const { classes } = useStyles()
 
   const [items, setItems] = useState([])
+  const [searchValue, setSearchValue] = useState('')
+  const [searchRadioValue, setSearchRadioValue] = useState('name')
   const [currentPage, setCurrentPage] = useState(0)
 
   const numberOfPages = Math.ceil(items.length / 10)
@@ -34,19 +37,58 @@ function App() {
     setCurrentPage(value - 1)
   }
 
+  const handleChangeInput = (e) => {
+    const value = e.target.value
+    setSearchValue(value)
+  }
+
+  const handleChangeRadioInput = (e) => {
+    const value = e.target.value
+    console.log(value)
+    setSearchRadioValue(value)
+  }
+
   useEffect(() => {
-    const requestApi = async() => {
-      const response = await axios("http://localhost:3333/data")
-      setItems(response.data)
-      console.log(response.data)
+    try{
+      if(searchRadioValue === 'name'){
+        const requestApi = async() => {
+          const response = await axios(
+            ` 
+              http://localhost:3333/data?${searchRadioValue}_like=${searchValue.toUpperCase()}
+              &_page=${currentPage + 1}
+              &_sort=published_at
+              &_order=desc
+            `
+          )
+          setItems(response.data)
+        }
+        
+        requestApi()
+  
+      } else if(searchRadioValue === 'company'){
+        const requestApi = async() => {
+          const response = await axios(
+            `
+              http://localhost:3333/data?${searchRadioValue}_like=${searchValue.toUpperCase()}
+              &_page=${currentPage + 1}
+              &_sort=published_at
+              &_order=desc
+            `
+          )
+          setItems(response.data)
+        }
+        requestApi()
+      }
+    } catch(error){
+
     }
 
-    requestApi()
-  }, [])
+  }, [searchValue, searchRadioValue, currentPage])
 
   return (
     <TemplateDefault>
-      <Search />
+      <Search value={searchValue} onChange={e => handleChangeInput(e)} />
+      <InputRadio onChange={handleChangeRadioInput} />
       <Grid container justifyContent={'center'}>
         {
           currentItems.map((item) => (
