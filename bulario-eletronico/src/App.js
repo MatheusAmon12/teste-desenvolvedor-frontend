@@ -1,10 +1,11 @@
-import Search from "./components/Search"
+import Search from './components/Search'
+import TemplateDefault from './templates/Default'
 
 function App() {
   return (
-    <div>
+    <TemplateDefault>
       <Search /> 
-    </div>
+    </TemplateDefault>
   )
 }
 
