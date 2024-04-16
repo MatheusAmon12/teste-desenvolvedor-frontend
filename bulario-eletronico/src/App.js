@@ -32,6 +32,9 @@ function App() {
   const initialIndexPage = currentPage * 10
 
   const currentItems = items.slice(initialIndexPage, initialIndexPage + 10)
+  const currentItemsSorted = currentItems.slice().sort(
+    (a, b) => new Date(b.published_at) - new Date(a.published_at)
+  )
 
   const handleChange = (event, value) => {
     setCurrentPage(value - 1)
@@ -53,11 +56,8 @@ function App() {
       if(searchRadioValue === 'name'){
         const requestApi = async() => {
           const response = await axios(
-            ` 
+            `
               http://localhost:3333/data?${searchRadioValue}_like=${searchValue.toUpperCase()}
-              &_page=${currentPage + 1}
-              &_sort=published_at
-              &_order=desc
             `
           )
           setItems(response.data)
@@ -70,9 +70,6 @@ function App() {
           const response = await axios(
             `
               http://localhost:3333/data?${searchRadioValue}_like=${searchValue.toUpperCase()}
-              &_page=${currentPage + 1}
-              &_sort=published_at
-              &_order=desc
             `
           )
           setItems(response.data)
@@ -80,10 +77,10 @@ function App() {
         requestApi()
       }
     } catch(error){
-
+      
     }
 
-  }, [searchValue, searchRadioValue, currentPage])
+  }, [searchValue, searchRadioValue])
 
   return (
     <TemplateDefault>
@@ -91,11 +88,12 @@ function App() {
       <InputRadio onChange={handleChangeRadioInput} />
       <Grid container justifyContent={'center'}>
         {
-          currentItems.map((item) => (
+          currentItemsSorted.map((item) => (
             <Grid item lg={3} sm={12} key={item.id}>
               <Cards
                 name={item.name}
                 company={item.company}
+                published={new Date(item.published_at).toLocaleString('pt-BR')}
               /> 
             </Grid>
           ))

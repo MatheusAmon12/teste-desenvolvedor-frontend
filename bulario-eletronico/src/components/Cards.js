@@ -24,7 +24,7 @@ const useStyles = makeStyles()((theme) => {
     }
 })
 
-const OutlinedCard =  ({ name, company }) => {
+const OutlinedCard =  ({ name, company, published }) => {
     const { classes } = useStyles()
 
   return (
@@ -48,6 +48,13 @@ const OutlinedCard =  ({ name, company }) => {
                 gutterBottom
             >
                 {company}
+            </Typography>
+            <Typography 
+                sx={{ fontSize: 10 }} 
+                color="text.secondary" 
+                gutterBottom
+            >
+                {published}
             </Typography>
         </CardContent>
         <CardActions>
