@@ -1,4 +1,5 @@
-import { TextField } from '@mui/material'
+import { InputAdornment, TextField } from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search'
 
 
 const Search = () => {
@@ -6,7 +7,14 @@ const Search = () => {
         <TextField 
             size='small' 
             fullWidth 
-            variant='outlined' 
+            variant='outlined'
+            InputProps={{
+                endAdornment: (
+                    <InputAdornment position="end">
+                        <SearchIcon />
+                    </InputAdornment>
+                )
+            }}
         />
     )
 }
