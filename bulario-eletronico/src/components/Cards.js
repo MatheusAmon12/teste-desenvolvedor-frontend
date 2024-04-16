@@ -24,12 +24,12 @@ const OutlinedCard =  () => {
 
   return (
     <Box 
-        sx={{ width: 275 }}
+        sx={{ width: 160 }}
         className={classes.box}
     >
       <CardContent>
         <Typography 
-            variant="h5" 
+            variant="body" 
             fontWeight={'bold'} 
             component="div"
         >
