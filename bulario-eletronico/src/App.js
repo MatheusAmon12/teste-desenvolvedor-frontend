@@ -1,18 +1,46 @@
 import { Grid } from '@mui/material'
+import { Pagination, Box } from '@mui/material'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import { makeStyles } from 'tss-react/mui'
+
 import Search from './components/Search'
 import Cards from './components/Cards'
 import TemplateDefault from './templates/Default'
-import Pagination from './components/Pagination'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+
+const useStyles = makeStyles()(() => {
+  return{
+    box: {
+      display: 'flex',
+      justifyContent: 'center',
+      marginTop: '40px'
+    }
+  }
+})
 
 function App() {
-  const [data, setData] = useState([])
+  const { classes } = useStyles()
+
+  const [items, setItems] = useState([])
+  const [currentPage, setCurrentPage] = useState(0)
+
+  const numberOfPages = Math.ceil(items.length / 10)
+
+  const initialIndexPage = currentPage * 10
+  console.log("Valor inicial", initialIndexPage)
+
+  const currentItems = items.slice(initialIndexPage, initialIndexPage + 10)
+  console.log('lista atual', currentItems)
+
+  const handleChange = (event, value) => {
+    console.log('este é o valor', value)
+    setCurrentPage(value - 1)
+  }
 
   useEffect(() => {
     const requestApi = async() => {
       const response = await axios("http://localhost:3333/data")
-      setData(response.data)
+      setItems(response.data)
       console.log(response.data)
     }
 
@@ -24,7 +52,7 @@ function App() {
       <Search />
       <Grid container justifyContent={'center'}>
         {
-          data.map((item) => (
+          currentItems.map((item) => (
             <Grid item lg={3} sm={12}>
               <Cards
                 name={item.name}
@@ -34,7 +62,14 @@ function App() {
           ))
         }
       </Grid>
-      <Pagination />
+      <Box className={classes.box}>
+        <Pagination 
+          color={'primary'} 
+          count={numberOfPages} 
+          page={currentPage + 1} 
+          onChange={handleChange} 
+        />
+      </Box>
     </TemplateDefault>
   )
 }
