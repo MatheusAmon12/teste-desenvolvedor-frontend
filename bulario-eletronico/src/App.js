@@ -27,13 +27,10 @@ function App() {
   const numberOfPages = Math.ceil(items.length / 10)
 
   const initialIndexPage = currentPage * 10
-  console.log("Valor inicial", initialIndexPage)
 
   const currentItems = items.slice(initialIndexPage, initialIndexPage + 10)
-  console.log('lista atual', currentItems)
 
   const handleChange = (event, value) => {
-    console.log('este é o valor', value)
     setCurrentPage(value - 1)
   }
 
@@ -53,7 +50,7 @@ function App() {
       <Grid container justifyContent={'center'}>
         {
           currentItems.map((item) => (
-            <Grid item lg={3} sm={12}>
+            <Grid item lg={3} sm={12} key={item.id}>
               <Cards
                 name={item.name}
                 company={item.company}
