@@ -1,10 +1,12 @@
 import Search from './components/Search'
+import Cards from './components/Cards'
 import TemplateDefault from './templates/Default'
 
 function App() {
   return (
     <TemplateDefault>
-      <Search /> 
+      <Search />
+      <Cards /> 
     </TemplateDefault>
   )
 }

@@ -1,15 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import theme from './theme';
+import { CssBaseline, ThemeProvider } from '@mui/material'
+import { CacheProvider } from '@emotion/react'
+import createCache from '@emotion/cache'
+import theme from './theme'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+export const muiCache = createCache({
+  key: 'mui',
+  prepend: true,
+})
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <CssBaseline />
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <CacheProvider value={muiCache}>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </CacheProvider>
   </React.StrictMode>
 )
