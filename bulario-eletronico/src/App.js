@@ -82,7 +82,7 @@ function App() {
         requestApi()
       }
     } catch(error){
-      
+      console.log(error)
     }
 
   }, [searchValue, searchRadioValue])
