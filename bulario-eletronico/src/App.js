@@ -51,6 +51,11 @@ function App() {
     setSearchRadioValue(value)
   }
 
+  const handleClickDownload = (pdf) => {
+    console.log("Este é o pdf", pdf)
+    window.open(pdf, '_blank')
+  }
+
   useEffect(() => {
     try{
       if(searchRadioValue === 'name'){
@@ -94,6 +99,7 @@ function App() {
                 name={item.name}
                 company={item.company}
                 published={new Date(item.published_at).toLocaleString('pt-BR')}
+                onClick={() => handleClickDownload(item.documents[0].url)}
               /> 
             </Grid>
           ))

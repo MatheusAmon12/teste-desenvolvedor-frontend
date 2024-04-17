@@ -24,7 +24,7 @@ const useStyles = makeStyles()((theme) => {
     }
 })
 
-const OutlinedCard =  ({ name, company, published }) => {
+const OutlinedCard =  ({ name, company, published, onClick }) => {
     const { classes } = useStyles()
 
   return (
@@ -58,7 +58,8 @@ const OutlinedCard =  ({ name, company, published }) => {
             </Typography>
         </CardContent>
         <CardActions>
-            <Button size="small" endIcon={<DownloadIcon />}>Bula</Button>
+            <Button 
+            size="small" onClick={onClick} endIcon={<DownloadIcon />}>Bula</Button>
         </CardActions>
     </Box>
   )
