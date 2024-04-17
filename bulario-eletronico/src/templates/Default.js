@@ -6,7 +6,7 @@ const TemplateDefault = ({ children }) => {
         maxWidth='md'
         disableGutters
         style={{
-            padding: "80px 0",
+            padding: "80px",
         }}
         >
             <Typography 

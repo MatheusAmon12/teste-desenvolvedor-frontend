@@ -62,7 +62,7 @@ function App() {
         const requestApi = async() => {
           const response = await axios(
             `
-              http://localhost:3333/data?${searchRadioValue}_like=${searchValue.toUpperCase()}
+              http://localhost:3000/data?${searchRadioValue}_like=${searchValue.toUpperCase()}
             `
           )
           setItems(response.data)
@@ -74,7 +74,7 @@ function App() {
         const requestApi = async() => {
           const response = await axios(
             `
-              http://localhost:3333/data?${searchRadioValue}_like=${searchValue.toUpperCase()}
+              http://localhost:3000/data?${searchRadioValue}_like=${searchValue.toUpperCase()}
             `
           )
           setItems(response.data)
@@ -91,10 +91,10 @@ function App() {
     <TemplateDefault>
       <Search value={searchValue} onChange={e => handleChangeInput(e)} />
       <InputRadio onChange={handleChangeRadioInput} />
-      <Grid container justifyContent={'center'}>
+      <Grid container justifyContent={'center'} spacing={'24px'}>
         {
           currentItemsSorted.map((item) => (
-            <Grid item lg={3} sm={12} key={item.id}>
+            <Grid item md={3} sm={6} key={item.id}>
               <Cards
                 name={item.name}
                 company={item.company}
