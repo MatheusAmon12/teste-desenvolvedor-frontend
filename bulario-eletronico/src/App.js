@@ -1,13 +1,13 @@
 import { Grid } from '@mui/material'
 import { Pagination, Box } from '@mui/material'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { makeStyles } from 'tss-react/mui'
 
 import Search from './components/Search'
 import Cards from './components/Cards'
 import TemplateDefault from './templates/Default'
 import InputRadio from './components/InputRadio'
+import { fetchData } from './utils/fetchData'
 
 const useStyles = makeStyles()(() => {
   return{
@@ -47,43 +47,22 @@ function App() {
 
   const handleChangeRadioInput = (e) => {
     const value = e.target.value
-    console.log(value)
     setSearchRadioValue(value)
   }
 
   const handleClickDownload = (pdf) => {
-    console.log("Este é o pdf", pdf)
     window.open(pdf, '_blank')
   }
 
   useEffect(() => {
-    try{
-      if(searchRadioValue === 'name'){
-        const requestApi = async() => {
-          const response = await axios(
-            `
-              http://localhost:3000/data?${searchRadioValue}_like=${searchValue.toUpperCase()}
-            `
-          )
-          setItems(response.data)
-        }
-        
-        requestApi()
-  
-      } else if(searchRadioValue === 'company'){
-        const requestApi = async() => {
-          const response = await axios(
-            `
-              http://localhost:3000/data?${searchRadioValue}_like=${searchValue.toUpperCase()}
-            `
-          )
-          setItems(response.data)
-        }
-        requestApi()
-      }
-    } catch(error){
-      console.log(error)
+
+    const fetchApi = async() => {
+      const data = await fetchData(searchRadioValue, searchValue )
+      console.log("requisição no app", data)
+      setItems(data)
     }
+
+    fetchApi()
 
   }, [searchValue, searchRadioValue])
 
