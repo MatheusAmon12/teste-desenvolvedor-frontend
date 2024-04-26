@@ -55,15 +55,12 @@ function App() {
   }
 
   useEffect(() => {
-
     const fetchApi = async() => {
       const data = await fetchData(searchRadioValue, searchValue )
-      console.log("requisição no app", data)
       setItems(data)
     }
 
     fetchApi()
-
   }, [searchValue, searchRadioValue])
 
   return (

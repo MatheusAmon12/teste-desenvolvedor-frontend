@@ -29,7 +29,7 @@ const OutlinedCard =  ({ name, company, published, onClick }) => {
 
   return (
     <Box 
-        sx={{ width: 160, height: 180 }}
+        sx={{ width: 160, height: 220 }}
         className={classes.box}
     >
         <CardContent>
@@ -59,7 +59,12 @@ const OutlinedCard =  ({ name, company, published, onClick }) => {
         </CardContent>
         <CardActions>
             <Button 
-            size="small" onClick={onClick} endIcon={<DownloadIcon />}>Bula</Button>
+                size="small" 
+                onClick={onClick} 
+                endIcon={<DownloadIcon />}
+            >
+                Bula
+            </Button>
         </CardActions>
     </Box>
   )
